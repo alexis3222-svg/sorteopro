@@ -11,9 +11,10 @@ type Slide = {
 
 const slides: Slide[] = [
     { id: 1, src: "/gokart-1.jpg", alt: "Go Kart vista 1" },
-    { id: 2, src: "/gokart-2.jpg", alt: "Go Kart vista 2" },
+    { id: 2, src: "/gokart-2.avif", alt: "Go Kart vista 2" },
     { id: 3, src: "/gokart-3.jpg", alt: "Go Kart vista 3" },
 ];
+
 
 export function SorteoCarousel() {
     const [current, setCurrent] = useState(0);
