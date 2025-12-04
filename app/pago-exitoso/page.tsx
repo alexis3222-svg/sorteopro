@@ -1,10 +1,14 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function PagoExitosoPage() {
+function PagoExitosoContent() {
     const searchParams = useSearchParams();
-    const tx = searchParams.get("clientTransactionId") || searchParams.get("tx");
+    const tx =
+        searchParams.get("clientTransactionId") ||
+        searchParams.get("tx") ||
+        searchParams.get("id");
     const router = useRouter();
 
     return (
@@ -13,12 +17,15 @@ export default function PagoExitosoPage() {
                 <h1 className="text-2xl font-bold text-emerald-600 mb-2">
                     ¡Pago realizado con éxito!
                 </h1>
+
                 <p className="text-gray-700 mb-2">
                     Hemos recibido tu pago correctamente.
                 </p>
+
                 {tx && (
                     <p className="text-xs text-gray-500 mb-4">
-                        Referencia de transacción: <span className="font-mono">{tx}</span>
+                        Transacción:{" "}
+                        <span className="font-mono break-all">{tx}</span>
                     </p>
                 )}
 
@@ -30,5 +37,19 @@ export default function PagoExitosoPage() {
                 </button>
             </div>
         </main>
+    );
+}
+
+export default function PagoExitosoPage() {
+    return (
+        <Suspense
+            fallback={
+                <main className="min-h-screen flex items-center justify-center bg-gray-100">
+                    <p className="text-sm text-gray-600">Cargando pago...</p>
+                </main>
+            }
+        >
+            <PagoExitosoContent />
+        </Suspense>
     );
 }
